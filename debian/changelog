@@ -1,0 +1,19 @@
+tdc (1.2-1) unstable; urgency=low
+
+  * Fixed PREFIX in Makefile
+  * First version ready for distribution. (Closes: #567377)
+
+ -- Michael Lustfield <mtecknology@ubuntu.com>  Thu, 05 Mar 2011 01:24:52 -0600
+
+tdc (1.1-1) unstable; urgency=low
+
+  * Added CHANGES file.
+  * Minor bug fixes to source and manual page.
+
+ -- Michael Lustfield <mtecknology@ubuntu.com>  Thu, 03 Mar 2011 21:04:25 -0600
+
+tdc (1.0-1) unstable; urgency=low
+
+  * Initial public release of Tiny Dockable Clock (TDC).
+
+ -- Michael Lustfield <mtecknology@ubuntu.com>  Tue, 01 Mar 2011 10:45:05 -0600

@@ -1,0 +1,23 @@
+Source: tdc
+Section: x11
+Priority: optional
+Maintainer: Michael Lustfield <mtecknology@ubuntu.com>
+Build-Depends: debhelper (>= 7), libxft-dev, libxt-dev, libx11-dev
+Standards-Version: 3.9.1
+Homepage: https://launchpad.net/tdc
+Vcs-Bzr: http://bazaar.launchpad.net/~tdc/tdc/trunk
+
+Package: tdc
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, bsdmainutils
+Description: Tiny Dockable Clock (tdc) is a simple and tiny dockable clock
+ Tiny Dockable Clock (tdc) is a simple and tiny dockable clock. It is a very
+ simple tool especially helpful for those that are using openbox. It
+ can use various colors, sizes, formats, etc. It can accept any POSIX
+ date format.
+ .
+ Window managers that are reported to work well with tdc:
+  - FVWM
+  - OpenBox
+  - Enlightenment
+  - ion3

@@ -1,0 +1,12 @@
+Tiny Dockable Clock (tdc) is a simple and tiny dockable clock.
+
+TDC was originally written by Mikael Magnusson <mikachu@comhem.se> and
+Dave Foster <daf@minuslab.net>. It has undergone significant changes
+since then and has become a new project. It is now maintained by
+Michael Lustfield <mtecknology@ubuntu.com>.
+
+latest version:  1.1
+project webpage: https://launchpad.net/tdc
+bzr repo:        http://bazaar.launchpad.net/~tdc/tdc/trunk
+
+TDC is released under the GNU GPLv3. See COPYING for more information.

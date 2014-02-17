@@ -1,0 +1,15 @@
+Changes wtih tdc 1.2                                                05 Mar 2011
+
+  *) Fixed PREFIX in Makefile
+
+  *) First version ready for distribution.
+
+Changes with tdc 1.1                                                03 Mar 2011
+
+  *) Added CHANGES file.
+
+  *) Minor bug fixes to source and manual page.
+
+Changes with tdc 1.0                                                01 Mar 2011
+
+  *) The first public version.
