@@ -63,10 +63,6 @@ static XrmOptionDescRec opt_table[] = {
   {"-c",            "*color",       XrmoptionSepArg, (XPointer)NULL},
   {"-w",            "*width",       XrmoptionSepArg, (XPointer)NULL},
   {"-f",            "*format",      XrmoptionSepArg, (XPointer)NULL},
-  {"-ce",           "*enable-cal",  XrmoptionSepArg, (XPointer)NULL},
-  {"-cf",           "*calfont",     XrmoptionSepArg, (XPointer)NULL},
-  {"-cs",           "*calfontsize", XrmoptionSepArg, (XPointer)NULL},
-  {"-ch",           "*hlcolor",     XrmoptionSepArg, (XPointer)NULL},
   {"-h",            "*help",        XrmoptionNoArg,  (XPointer)""},
   {"-v",            "*version",     XrmoptionNoArg,  (XPointer)""},
 };
@@ -123,10 +119,10 @@ void get_params(Display *display, int argc, char *argv[]) {
     printf("-w,  --width:       The width of the dockapp window.  Default is 64.\n");
     printf("-f,  --format:      The time format to use.  Default is %%T.  You can\n");
     printf("                    get format codes from the man page for strftime.\n");
-    printf("-ce, --enable-cal:  Enable the calendar feature which is opened by clicking the clock.\n");
-    printf("-cf, --calfont:     The font that will be used in the calendar.  Default is Mono.\n");
-    printf("-cs, --calfontsize: The font size used in the calendar.  Default is 14.0.\n");
-    printf("-ch, --hlcolor:     The highlight color to use in the calendar.  Default is grey30.\n");
+    printf("     --enable-cal:  Enable the calendar feature which is opened by clicking the clock.\n");
+    printf("     --calfont:     The font that will be used in the calendar.  Default is Mono.\n");
+    printf("     --calfontsize: The font size used in the calendar.  Default is 14.0.\n");
+    printf("     --hlcolor:     The highlight color to use in the calendar.  Default is grey30.\n");
     printf("You can also put these in your ~/.Xdefaults file:\n");
     printf("tdc*font\n");
     printf("tdc*fontsize\n");
@@ -142,7 +138,7 @@ void get_params(Display *display, int argc, char *argv[]) {
 
   /* check for version request */
   if (XrmGetResource(database, "tdc.version", "tdc.version", &type, &xrmval) == True) {
-    printf("tdc 1.2\n");
+    printf("tdc 1.3\n");
     exit(0);
   }
 
@@ -403,6 +399,7 @@ int main(int argc, char *argv[]) {
   int m_x = 0, m_y = 0;
   int glyph_w, glyph_h;
   int calopen = 0;
+  char *appname = "tdc";
 
   /* Time stuff */
   int xfd, selectret = 0;
@@ -447,6 +444,8 @@ int main(int argc, char *argv[]) {
   XSetCommand(display, dockapp, argv, argc);
 
   XSetWindowBackgroundPixmap(display, dockapp, ParentRelative);
+
+  XStoreName(display, dockapp, appname);
 
   if (cal) {
     cal_m = getmonth();

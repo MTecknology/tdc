@@ -1,3 +1,7 @@
+Changes with tdc 1.3                                                17 Feb 2014
+
+  *) Added window title
+
 Changes wtih tdc 1.2                                                05 Mar 2011
 
   *) Fixed PREFIX in Makefile
