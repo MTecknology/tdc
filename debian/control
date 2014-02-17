@@ -1,9 +1,9 @@
 Source: tdc
 Section: x11
 Priority: optional
-Maintainer: Michael Lustfield <mtecknology@ubuntu.com>
+Maintainer: Michael Lustfield <michael@lustfield.net>
 Build-Depends: debhelper (>= 7), libxft-dev, libxt-dev, libx11-dev
-Standards-Version: 3.9.1
+Standards-Version: 3.9.5
 Homepage: https://launchpad.net/tdc
 Vcs-Bzr: http://bazaar.launchpad.net/~tdc/tdc/trunk
 

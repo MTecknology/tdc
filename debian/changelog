@@ -1,9 +1,21 @@
+tdc (1.2-2) UNRELEASED; urgency=low
+
+  * debian/watch:
+    + Updated to point at a more consistent location.
+  * debian/control:
+    + Updated maintainer email address.
+    + Updated policy standards version.
+  * debian/changelog:
+    + Corrected odd date issue.
+
+ -- Michael Lustfield <michael@lustfield.net>  Mon, 17 Feb 2014 03:19:50 -0600
+
 tdc (1.2-1) unstable; urgency=low
 
   * Fixed PREFIX in Makefile
   * First version ready for distribution. (Closes: #567377)
 
- -- Michael Lustfield <mtecknology@ubuntu.com>  Thu, 05 Mar 2011 01:24:52 -0600
+ -- Michael Lustfield <mtecknology@ubuntu.com>  Sat, 05 Mar 2011 01:24:52 -0600
 
 tdc (1.1-1) unstable; urgency=low
 
