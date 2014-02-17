@@ -7,6 +7,8 @@ tdc (1.2-2) UNRELEASED; urgency=low
     + Updated policy standards version.
   * debian/changelog:
     + Corrected odd date issue.
+  * debian/compat:
+    + Changed 7->9. Resolves hardening-no-relro warning.
 
  -- Michael Lustfield <michael@lustfield.net>  Mon, 17 Feb 2014 03:19:50 -0600
 
