@@ -1,17 +1,13 @@
-Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
-Name: TDC
-Maintainer: Michael Lustfield <mtecknology@ubuntu.com>
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: TDC
+Upstream-Contact: Michael Lustfield <michael@lustfield.net>
 Source: <https://launchpad.net/tdc>
 
-Authors:
- Michael Lustfield <mtecknology@ubuntu.com>
- Mikael Magnusson <mikachu@comhem.se>
- Dave Foster <daf@minuslab.net>
- Thayer Williams <thayer@archlinux.org>
-
 Files: *
-Copyright: (C) 2011, Michael Lustfield.
-
+Copyright: 2011-2014, Michael Lustfield <michael@lustfield.net>
+           2009-2010, Dave Foster <daf@minuslab.net>
+           2010, Mikael Magnusson <mikachu@comhem.se>
+           2008, Thayer Williams <thayer@archlinux.org>
 License: GPL-3+
  TDC is free software; you can redistribute it and/or modify it under the
  terms of the GNU General Public License as published by the Free Software
