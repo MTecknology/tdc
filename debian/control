@@ -5,14 +5,13 @@ Maintainer: Michael Lustfield <michael@lustfield.net>
 Build-Depends: debhelper (>= 9), libxft-dev, libxt-dev, libx11-dev
 Standards-Version: 3.9.5
 Homepage: https://launchpad.net/tdc
-Vcs-Bzr: http://bazaar.launchpad.net/~tdc/tdc/trunk
 
 Package: tdc
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, bsdmainutils
-Description: Tiny Dockable Clock (tdc) is a simple and tiny dockable clock
+Description: Tiny Dockable Clock
  Tiny Dockable Clock (tdc) is a simple and tiny dockable clock. It is a very
- simple tool especially helpful for those that are using openbox. It
+ simple tool; especially helpful for those that are using OpenBox. It
  can use various colors, sizes, formats, etc. It can accept any POSIX
  date format.
  .
