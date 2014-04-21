@@ -1,6 +1,8 @@
-Changes with tdc 1.3                                                17 Feb 2014
+Changes with tdc 1.3                                                20 Feb 2014
 
   *) Added window title
+
+  *) Added support for other build flags
 
 Changes wtih tdc 1.2                                                05 Mar 2011
 

@@ -13,6 +13,8 @@ tdc (1.3-1) unstable; urgency=low
     + Corrected odd date issue.
   * debian/compat:
     + Changed 7->9. Resolves hardening-no-relro warning.
+  * Makefile:
+    + Added support in makefile for extra flags.
   * New upstream release.
     + Added window title. (Closes: #644732)
 
