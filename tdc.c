@@ -45,26 +45,26 @@ char *timeformat = "%T";
 char *colorname = "white";
 
 static XrmOptionDescRec opt_table[] = {
-  {"--font",        "*font",        XrmoptionSepArg, (XPointer)NULL},
-  {"--bold",        "*bold",        XrmoptionNoArg,  (XPointer)""},
-  {"--fontsize",    "*fontsize",    XrmoptionSepArg, (XPointer)NULL},
-  {"--color",       "*color",       XrmoptionSepArg, (XPointer)NULL},
-  {"--width",       "*width",       XrmoptionSepArg, (XPointer)NULL},
-  {"--format",      "*format",      XrmoptionSepArg, (XPointer)NULL},
-  {"--calfont",     "*calfont",     XrmoptionSepArg, (XPointer)NULL},
-  {"--calfontsize", "*calfontsize", XrmoptionSepArg, (XPointer)NULL},
-  {"--hlcolor",     "*hlcolor",     XrmoptionSepArg, (XPointer)NULL},
-  {"--help",        "*help",        XrmoptionNoArg,  (XPointer)""},
-  {"--version",     "*version",     XrmoptionNoArg,  (XPointer)""},
-  {"--enable-cal",  "*enable-cal",  XrmoptionNoArg,  (XPointer)""},
-  {"-t",            "*font",        XrmoptionSepArg, (XPointer)NULL},
-  {"-b",            "*bold",        XrmoptionNoArg,  (XPointer)""},
-  {"-s",            "*fontsize",    XrmoptionSepArg, (XPointer)NULL},
-  {"-c",            "*color",       XrmoptionSepArg, (XPointer)NULL},
-  {"-w",            "*width",       XrmoptionSepArg, (XPointer)NULL},
-  {"-f",            "*format",      XrmoptionSepArg, (XPointer)NULL},
-  {"-h",            "*help",        XrmoptionNoArg,  (XPointer)""},
-  {"-v",            "*version",     XrmoptionNoArg,  (XPointer)""},
+  {"--font=",        "*font",        XrmoptionStickyArg, (XPointer)NULL},
+  {"--bold",         "*bold",        XrmoptionNoArg,     (XPointer)""},
+  {"--fontsize=",    "*fontsize",    XrmoptionStickyArg, (XPointer)NULL},
+  {"--color=",       "*color",       XrmoptionStickyArg, (XPointer)NULL},
+  {"--width=",       "*width",       XrmoptionStickyArg, (XPointer)NULL},
+  {"--format=",      "*format",      XrmoptionStickyArg, (XPointer)NULL},
+  {"--calfont=",     "*calfont",     XrmoptionStickyArg, (XPointer)NULL},
+  {"--calfontsize=", "*calfontsize", XrmoptionStickyArg, (XPointer)NULL},
+  {"--hlcolor=",     "*hlcolor",     XrmoptionStickyArg, (XPointer)NULL},
+  {"--help",         "*help",        XrmoptionNoArg,     (XPointer)""},
+  {"--version",      "*version",     XrmoptionNoArg,     (XPointer)""},
+  {"--enable-cal",   "*enable-cal",  XrmoptionNoArg,     (XPointer)""},
+  {"-t",             "*font",        XrmoptionSepArg,    (XPointer)NULL},
+  {"-b",             "*bold",        XrmoptionNoArg,     (XPointer)""},
+  {"-s",             "*fontsize",    XrmoptionSepArg,    (XPointer)NULL},
+  {"-c",             "*color",       XrmoptionSepArg,    (XPointer)NULL},
+  {"-w",             "*width",       XrmoptionSepArg,    (XPointer)NULL},
+  {"-f",             "*format",      XrmoptionSepArg,    (XPointer)NULL},
+  {"-h",             "*help",        XrmoptionNoArg,     (XPointer)""},
+  {"-v",             "*version",     XrmoptionNoArg,     (XPointer)""},
 };
 
 static void gettime(char *strtime) {
@@ -76,7 +76,7 @@ static void gettime(char *strtime) {
   strftime(strtime, 49, timeformat, curtime_tm);
 }
 
-void handle_term(int signal) {
+void handle_term() {
   running = 0;
 }
 
@@ -99,6 +99,9 @@ void get_params(Display *display, int argc, char *argv[]) {
   
   /* merge in Xdefaults */
   xdefaults = malloc(strlen(getenv("HOME")) + strlen("/.Xdefaults") + 1);
+  if (!xdefaults) {
+    die("Memory allocation failed");
+  }
   sprintf(xdefaults, "%s/.Xdefaults", getenv("HOME"));
   XrmCombineFileDatabase(xdefaults, &database, True);
   free(xdefaults);
@@ -295,7 +298,7 @@ void get_calendar(char line[8][30], int month, int year) {
   char command[30];
   char buff[8][30];
 
-  sprintf(command, "cal %d %d", month, year);
+  sprintf(command, "cal -h %d %d", month, year);
 
   fp = popen(command, "r");
   while (fgets(buff[i], sizeof buff[i], fp)) {
@@ -330,8 +333,8 @@ void findtoday(int *todayi, int *todayj, int cal_m, int cal_y) {
   }
 }
 
-void paintCalendar(Display *display, GC gc, Window calendar, int cal_m, int cal_y,
-XftDraw *caldraw, XftFont *font, XftColor *xftcolor, XftColor *xfthlcolor) {
+void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
+                   XftFont *font, XftColor *xftcolor, XftColor *xfthlcolor) {
   int i = 0, j = 0;
   int p_x = 0, p_y = 0;
   int todayi = 0, todayj = 0;
@@ -341,7 +344,7 @@ XftDraw *caldraw, XftFont *font, XftColor *xftcolor, XftColor *xfthlcolor) {
   XGlyphInfo extents;
   int glyph_w, glyph_h;
 
-  XftTextExtentsUtf8(display, font, "0", strlen("0"), &extents);
+  XftTextExtentsUtf8(display, font, (FcChar8*) "0", strlen("0"), &extents);
   glyph_w = extents.xOff;
   glyph_h = extents.height * 1.8;
 
@@ -357,17 +360,17 @@ XftDraw *caldraw, XftFont *font, XftColor *xftcolor, XftColor *xfthlcolor) {
         /*make sure not to print newline chars */
         if (i == todayi && (j == todayj || j == todayj + 1)) {
           XftDrawRect(caldraw, xfthlcolor, p_x - extents.x, p_y - extents.y, extents.xOff, extents.height);
-          XftDrawStringUtf8(caldraw, xftcolor, font, p_x, p_y, buff, strlen(buff));
+          XftDrawStringUtf8(caldraw, xftcolor, font, p_x, p_y, (FcChar8*) buff, strlen(buff));
         }
         else {
-          XftDrawStringUtf8(caldraw, xftcolor, font, p_x, p_y, buff, strlen(buff));
+          XftDrawStringUtf8(caldraw, xftcolor, font, p_x, p_y, (FcChar8*) buff, strlen(buff));
         }
       }
     }
   }
 
-  XftDrawStringUtf8(caldraw, xftcolor, font, 1, glyph_h, leftarrow, strlen(leftarrow));
-  XftDrawStringUtf8(caldraw, xftcolor, font, glyph_w *19, glyph_h, rightarrow, strlen(rightarrow));
+  XftDrawStringUtf8(caldraw, xftcolor, font, 1, glyph_h, (FcChar8*) leftarrow, strlen(leftarrow));
+  XftDrawStringUtf8(caldraw, xftcolor, font, glyph_w *19, glyph_h, (FcChar8*) rightarrow, strlen(rightarrow));
 
   XFlush(display);
 }
@@ -381,7 +384,7 @@ int main(int argc, char *argv[]) {
   XftDraw *draw;
   XftColor xftcolor;
   XRenderColor color;
-  XColor c; /* ... */
+  XColor c;
   int screen;
   Colormap colormap;
   Window root;
@@ -389,15 +392,14 @@ int main(int argc, char *argv[]) {
   XGlyphInfo extents;
   XEvent event;
   int x, y;
-  Window calendar;
-  GC gc;
+  Window calendar = (Window)NULL;
   XSetWindowAttributes attributes;
-  XftFont *calfont;
-  XftDraw *caldraw;
+  XftFont *calfont = NULL;
+  XftDraw *caldraw = NULL;
   XftColor xfthlcolor;
-  int cal_m, cal_y;
-  int m_x = 0, m_y = 0;
-  int glyph_w, glyph_h;
+  int cal_m = 0, cal_y = 0;
+  int m_x = 0;
+  int glyph_w = 0, glyph_h = 0;
   int calopen = 0;
   char *appname = "tdc";
 
@@ -407,7 +409,10 @@ int main(int argc, char *argv[]) {
   struct timeval timeout;
   char strtime[50];
 
-  struct sigaction act = {0};
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wmissing-field-initializers"
+  struct sigaction act = {{0}};
+  #pragma GCC diagnostic pop
 
   act.sa_handler = &handle_term;
   sigaction(SIGTERM, &act, NULL);
@@ -458,7 +463,7 @@ int main(int argc, char *argv[]) {
   if (cal) {
     calfont = XftFontOpen(display, screen, XFT_FAMILY, XftTypeString, calfontname, XFT_PIXEL_SIZE,
                           XftTypeDouble, calfontsize, NULL);
-    XftTextExtentsUtf8(display, calfont, "0", strlen("0"), &extents);
+    XftTextExtentsUtf8(display, calfont, (FcChar8*) "0", strlen("0"), &extents);
     glyph_w = extents.xOff;
     glyph_h = extents.height * 1.8;
   }
@@ -488,16 +493,16 @@ int main(int argc, char *argv[]) {
 
   if (cal) {
     if (XParseColor(display, colormap, hlcolorname, &c) == None) {
-        fprintf(stderr, "Couldn't parse color '%s'\n", hlcolorname);
-        fflush(stderr);
-        color.red = 0xffff;
-        color.green = 0xffff;
-        color.blue = 0xffff;
+      fprintf(stderr, "Couldn't parse color '%s'\n", hlcolorname);
+      fflush(stderr);
+      color.red = 0xffff;
+      color.green = 0xffff;
+      color.blue = 0xffff;
     }
     else {
-        color.red = c.red;
-        color.blue = c.blue;
-        color.green = c.green;
+      color.red = c.red;
+      color.blue = c.blue;
+      color.green = c.green;
     }
 
     color.alpha = 0xffff;
@@ -518,7 +523,6 @@ int main(int argc, char *argv[]) {
     attributes.override_redirect = True;
     XChangeWindowAttributes(display, calendar, CWOverrideRedirect, &attributes);
     XSelectInput(display, calendar, ExposureMask | ButtonPressMask);
-    gc = XCreateGC(display, calendar, 0, NULL);
     caldraw = XftDrawCreate(display, calendar, vis, colormap);
   }
   else {
@@ -545,6 +549,7 @@ int main(int argc, char *argv[]) {
         XFlush(display);
         timeout.tv_sec = 1;
         timeout.tv_usec = 0;
+	break;
       case 1:
         if (FD_ISSET(xfd, &fds)) {
           XNextEvent(display, &event);
@@ -568,30 +573,30 @@ int main(int argc, char *argv[]) {
             }
             else if (event.xbutton.button == 1) {
               m_x = event.xbutton.x;
-              m_y = event.xbutton.y;
-              if (m_x >= 0 && m_x < (glyph_w * 20 + 2) / 2) {
+              if (m_x >= 2 && m_x < (glyph_w * 20 + 2) / 2) {
                 shiftdate(&cal_m, &cal_y, -1);
                 XClearWindow(display, calendar);
-                paintCalendar(display, gc, calendar, cal_m, cal_y, caldraw, calfont, &xftcolor, &xfthlcolor);
+                paintCalendar(display, cal_m, cal_y, caldraw, calfont, &xftcolor, &xfthlcolor);
             }
             else if (m_x >= (glyph_w * 20 + 2) / 2 && m_x <= glyph_w * 20 + 2) {
               shiftdate(&cal_m, &cal_y, 1);
               XClearWindow(display, calendar);
-              paintCalendar(display, gc, calendar, cal_m, cal_y, caldraw, calfont, &xftcolor, &xfthlcolor);
+              paintCalendar(display, cal_m, cal_y, caldraw, calfont, &xftcolor, &xfthlcolor);
             }
           }
           XFlush(display);
         }
         if (event.type == Expose) {
           XClearWindow(display, dockapp);
-          if (cal) {
+          if (cal && caldraw != NULL && calfont != NULL && calendar != (Window)NULL) {
             XClearWindow(display, calendar);
-            paintCalendar(display, gc, calendar, cal_m, cal_y, caldraw, calfont, &xftcolor, &xfthlcolor);
+            paintCalendar(display, cal_m, cal_y, caldraw, calfont, &xftcolor, &xfthlcolor);
           }
           XftDrawString8(draw, &xftcolor, font, x, y, (unsigned char*)strtime, strlen(strtime));
           XFlush(display);
         }
       }
+      break;
     }
   }
 
