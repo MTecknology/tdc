@@ -1,2 +1,0 @@
-version=3
-opts=pgpsigurlmangle=s/$/.asc/ https://launchpad.net/tdc/ .*/tdc-(\d.*)\.(?:tgz|tar\.(?:gz|bz2|xz))
