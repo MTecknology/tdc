@@ -14,10 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with TDC.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors:      Michael Lustfield <michael@lustfield.net>
- * Contributors: Mikael Magnusson <mikachu@comhem.se>
- *               Dave Foster <daf@minuslab.net>
- *               Tom Cornall <t.cornall@gmail.com>
+ * Copyright: (C) Michael Lustfield <michael@lustfield.net>
  */
 
 #include <X11/Xlib.h>
