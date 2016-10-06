@@ -99,7 +99,7 @@ void get_params(Display *display, int argc, char *argv[]) {
   if (!xdefaults) {
     die("Memory allocation failed");
   }
-  sprintf(xdefaults, "%s/.Xdefaults", getenv("HOME"));
+  sprintf_s(xdefaults, "%s/.Xdefaults", getenv("HOME"));
   XrmCombineFileDatabase(xdefaults, &database, True);
   free(xdefaults);
 
