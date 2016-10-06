@@ -295,7 +295,7 @@ void get_calendar(char line[8][30], int month, int year) {
   char command[30];
   char buff[8][30];
 
-  sprintf(command, "cal -h %d %d", month, year);
+  sprintf_s(command, "cal -h %d %d", month, year);
 
   fp = popen(command, "r");
   while (fgets(buff[i], sizeof buff[i], fp)) {
@@ -304,7 +304,7 @@ void get_calendar(char line[8][30], int month, int year) {
   pclose(fp);
 
   for (i = 0; i < 8; i++) {
-    sprintf(line[i], "%-30s", buff[i]);
+    sprintf_s(line[i], "%-30s", buff[i]);
   }
 }
 
@@ -316,7 +316,7 @@ void findtoday(int *todayi, int *todayj, int cal_m, int cal_y) {
   *todayj = -1;
 
   if (cal_m == getmonth() && cal_y == getyear()) {
-    sprintf(needle, "%d", getday());
+    sprintf_s(needle, "%d", getday());
 
     pos_h = (char*) &curr_cal[2];
     pos_n = (char*) strstr(curr_cal[2], needle);
@@ -352,7 +352,7 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
     for (j = 0; j < 20; j++) {
       p_x = j * glyph_w + 1;
       p_y = (i + 1) * glyph_h;
-      sprintf(buff, "%c", curr_cal[i][j]);
+      sprintf_s(buff, "%c", curr_cal[i][j]);
       if ((int) buff[0] != 10) {
         /*make sure not to print newline chars */
         if (i == todayi && (j == todayj || j == todayj + 1)) {
