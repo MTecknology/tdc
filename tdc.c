@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with TDC.  If not, see <http://www.gnu.org/licenses/>.
+ * along with TDC.  If not, see <https://www.gnu.org/licenses/>.
  *
  * Copyright: (C) Michael Lustfield <michael@lustfield.net>
  */
