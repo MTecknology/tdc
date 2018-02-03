@@ -1,11 +1,11 @@
 Tiny Dockable Clock (tdc) is a simple and tiny dockable clock.
 
-TDC was originally written by Mikael Magnusson <mikachu@comhem.se> and
-Dave Foster <daf@minuslab.net>. It has undergone significant changes
-since then and has become a new project. It is now maintained by
-Michael Lustfield <michael@lustfield.net>.
 
-latest version:  1.4
+
+TDC is a very simple tool; especially helpful for those that are using OpenBox. It
+can use various colors, sizes, formats, etc. It can accept any POSIX date format.
+
+latest version:  1.6
 project: https://github.com/MTecknology/tdc
 
 TDC is released under the GNU GPLv3. See COPYING for more information.
