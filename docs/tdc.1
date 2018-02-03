@@ -1,0 +1,111 @@
+.\"     Title: tdc
+.\"    Author: Michael Lustfield <michael@lustfield.net>
+.\"      Date: 04/21/2014
+.\"    Manual: User Commands
+.\"    Source: tdc 1.4
+.\"
+.TH "TDC" "1" "04/21/2014" "tdc 1\.4" "User Commands"
+.\" disable hyphenation
+.NH
+.\" disable justification (adjust text to left margin only)
+.AD l
+.SH "NAME"
+tdc - stand alone clock that is designed to run as a dock application but is not required to
+.SH "SYNOPSIS"
+.B tdc
+.RI [ options ]
+.br
+.SH "DESCRIPTION"
+.PP
+Tiny Dockable Clock (tdc) is a simple and tiny dockable clock.
+.PP
+TDC is a stand\-alone clock to X Window Systemd/X11 (e.g. XOrg or XFree86). It
+has minimal build and run\-time dependencies. TDC works with virtually any
+EWMH\-compliant window manager.
+.PP
+The behavior and the look of TDC can be configured either via command line options
+or via configuration file. As usual, command\-line options have precedence over
+options that are specified in the configuration file.
+.SH "OPTIONS"
+This program follows the usual command line syntax, with long options starting
+with two dashes (`\-'). A summary of options is included below.
+.TP
+.B \-t, \-\-font
+The font face to use. Default is Mono.
+.TP
+.B \-b, \-\-bold
+Use a bold font.
+.TP
+.B \-s, \-\-fontsize
+The font size to use. Default is 12.0.
+.TP
+.B \-c, \-\-color
+The font color to use. Default is white.
+.TP
+.B \-w, \-\-width
+The width of the dockapp window. Default is 64.
+.TP
+.B \-f, \-\-format
+The time format to use. Default is %T. You can get format codes from the man page for strftime.
+.TP
+.B \-\-enable\-cal
+Enable the calendar feature which is opened by clicking the clock.
+.TP
+.B \-\-calfont
+The font that will be used in the calendar. Default is Mono.
+.TP
+.B \-\-calfontsize
+The font size used in the calendar. Default is 14.0.
+.TP
+.B \-\-hlcolor
+The highlight color to use in the calendar. Default is grey30.
+.TP
+.B \-h, \-\-help
+Show help information and exit.
+.TP
+.B \-v, \-\-version
+Show version information and exit.
+.SH "XDEFAULTS"
+.PP
+The following options can be set in \fI$HOME/\.Xdefaults\fR:
+.IP
+tdc*font
+.br
+tdc*bold
+.br
+tdc*fontsize
+.br
+tdc*enable-cal
+.br
+tdc*calfont
+.br
+tdc*calfontsize
+.br
+tdc*color
+.br
+tdc*hlcolor
+.br
+tdc*width
+.br
+tdc*format
+.SH "EXAMPLES"
+.PP
+These are some samples you may be interested in.
+.IP
+tdc \-\-width 110 \-\-format "%x %H:%M"
+.br
+tdc \-\-width 130 \-\-format "%x %H:%M:%S"
+.br
+tdc \-\-width 230 \-\-format "%a, %d %b %Y %T %z"
+.br
+tdc \-w 110 \-f "%x %H:%M" \-\-enable\-cal \-\-hlcolor=grey40
+.SH "FILES"
+.PP
+\fI$HOME/\.Xdefaults\fR
+\(em Specify defaults for tdc to refer to. This is discussed above.
+.SH "BUGS"
+.PP
+If you experience bugs, the best way to report them is to the upstream bug
+tracker. This can be found at https://github.com/MTecknology/tdc/issues.
+.PP
+This manual page was written by Michael Lustfield <michael@lustfield.net>.
