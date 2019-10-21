@@ -295,7 +295,7 @@ void get_calendar(char line[8][30], int month, int year) {
   char command[30];
   char buff[8][30];
 
-  snprintf(command, sizeof(command), "cal -h %d %d", month, year);
+  snprintf(command, sizeof(command), "ncal -b -h %d %d", month, year);
 
   fp = popen(command, "r");
   while (fgets(buff[i], sizeof buff[i], fp)) {
