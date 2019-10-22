@@ -1,3 +1,10 @@
+tdc (1.7-1) UNRELEASED; urgency=medium
+
+  * New upstream release (1.7).
+  * Fix copyright holders
+
+ -- Michael Lustfield <michael@lustfield.net>  Mon, 21 Oct 2019 22:21:53 -0500
+
 tdc (1.6-2) unstable; urgency=medium
 
   * Migrate packaging away from Alioth (deprecated).
