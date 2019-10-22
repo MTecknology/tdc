@@ -14,7 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with TDC.  If not, see <https://www.gnu.org/licenses/>.
  *
- * Copyright: (C) Michael Lustfield <michael@lustfield.net>
+ * Copyright: Michael Lustfield <michael@lustfield.net>
+ *            Mikael Magnusson <mikachu@comhem.se>
+ *            Dave Foster <daf@minuslab.net>
+ *            Tom Cornall <t.cornall@gmail.com>
  */
 
 #include <X11/Xlib.h>
@@ -138,7 +141,7 @@ void get_params(Display *display, int argc, char *argv[]) {
 
   /* check for version request */
   if (XrmGetResource(database, "tdc.version", "tdc.version", &type, &xrmval) == True) {
-    printf("tdc 1.6\n");
+    printf("tdc 1.7\n");
     exit(0);
   }
 
@@ -295,7 +298,7 @@ void get_calendar(char line[8][30], int month, int year) {
   char command[30];
   char buff[8][30];
 
-  snprintf(command, sizeof(command), "cal -h %d %d", month, year);
+  snprintf(command, sizeof(command), "ncal -b -h %d %d", month, year);
 
   fp = popen(command, "r");
   while (fgets(buff[i], sizeof buff[i], fp)) {
@@ -344,6 +347,19 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
   XftTextExtentsUtf8(display, font, (FcChar8*) "0", strlen("0"), &extents);
   glyph_w = extents.xOff;
   glyph_h = extents.height * 1.8;
+
+  if (system(NULL) == 0) {
+    char errmsg[] = "No shell available";
+    XftDrawStringUtf8(caldraw, xftcolor, font, glyph_w, glyph_h, (FcChar8*) errmsg, strlen(errmsg));
+    XFlush(display);
+    return;
+  }
+  if (system("which ncal > /dev/null 2>&1")) {
+    char errmsg[] = "ncal: not found";
+    XftDrawStringUtf8(caldraw, xftcolor, font, glyph_w, glyph_h, (FcChar8*) errmsg, strlen(errmsg));
+    XFlush(display);
+    return;
+  }
 
   get_calendar(curr_cal, cal_m, cal_y);
   findtoday(&todayi, &todayj, cal_m, cal_y);
