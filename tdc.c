@@ -345,6 +345,19 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
   glyph_w = extents.xOff;
   glyph_h = extents.height * 1.8;
 
+  if (system(NULL) == 0) {
+    char errmsg[] = "No shell available";
+    XftDrawStringUtf8(caldraw, xftcolor, font, glyph_w, glyph_h, (FcChar8*) errmsg, strlen(errmsg));
+    XFlush(display);
+    return;
+  }
+  if (system("which ncal > /dev/null 2>&1")) {
+    char errmsg[] = "ncal: not found";
+    XftDrawStringUtf8(caldraw, xftcolor, font, glyph_w, glyph_h, (FcChar8*) errmsg, strlen(errmsg));
+    XFlush(display);
+    return;
+  }
+
   get_calendar(curr_cal, cal_m, cal_y);
   findtoday(&todayi, &todayj, cal_m, cal_y);
 
