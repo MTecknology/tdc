@@ -92,17 +92,18 @@ void get_params(Display *display, int argc, char *argv[]) {
   char **nargv = argv;
   char *type;
   XrmValue xrmval;
-  char *xdefaults;
+  char *home = getenv("HOME");
+  size_t xdef_len = strlen(home) + strlen("/.Xdefaults") + 1;
+  char *xdefaults = malloc(xdef_len);
 
   XrmInitialize();
   database = XrmGetDatabase(display);
   
   /* merge in Xdefaults */
-  xdefaults = malloc(strlen(getenv("HOME")) + strlen("/.Xdefaults") + 1);
   if (!xdefaults) {
     die("Memory allocation failed");
   }
-  snprintf(xdefaults, sizeof(xdefaults), "%s/.Xdefaults", getenv("HOME"));
+  snprintf(xdefaults, xdef_len, "%s/.Xdefaults", home);
   XrmCombineFileDatabase(xdefaults, &database, True);
   free(xdefaults);
 
@@ -141,7 +142,7 @@ void get_params(Display *display, int argc, char *argv[]) {
 
   /* check for version request */
   if (XrmGetResource(database, "tdc.version", "tdc.version", &type, &xrmval) == True) {
-    printf("tdc 1.7\n");
+    printf("tdc 1.8\n");
     exit(0);
   }
 
@@ -301,13 +302,13 @@ void get_calendar(char line[8][30], int month, int year) {
   snprintf(command, sizeof(command), "ncal -b -h %d %d", month, year);
 
   fp = popen(command, "r");
-  while (fgets(buff[i], sizeof buff[i], fp)) {
+  while (fgets(buff[i], sizeof(buff[i]), fp)) {
     i++;
   }
   pclose(fp);
 
   for (i = 0; i < 8; i++) {
-    snprintf(line[i], sizeof(line[i]), "%-30s", buff[i]);
+    snprintf(line[i], sizeof(line[i]), "%-29.29s", buff[i]);
   }
 }
 
@@ -324,8 +325,8 @@ void findtoday(int *todayi, int *todayj, int cal_m, int cal_y) {
     pos_h = (char*) &curr_cal[2];
     pos_n = (char*) strstr(curr_cal[2], needle);
 
-    *todayi = (pos_n - pos_h) / sizeof curr_cal[2] + 2;
-    *todayj = (pos_n - pos_h) % sizeof curr_cal[2];
+    *todayi = (pos_n - pos_h) / sizeof(curr_cal[2]) + 2;
+    *todayj = (pos_n - pos_h) % sizeof(curr_cal[2]);
 
     if (getday() < 10) {
       -- * todayj;

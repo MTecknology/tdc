@@ -1,3 +1,8 @@
+Changes with tdc 1.8                                                22 Oct 2019
+
+  * Fix compiler warnings
+  * Minor code cleanup
+
 Changes with tdc 1.7                                                21 Oct 2019
 
   * Replace 'cal' with 'ncal' (Fixes: #2)
