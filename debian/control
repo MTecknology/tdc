@@ -11,7 +11,8 @@ Vcs-Git: https://github.com/MTecknology/tdc.git
 
 Package: tdc
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, bsdmainutils
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: bsdmainutils
 Description: Tiny Dockable Clock
  Tiny Dockable Clock (tdc) is a simple and tiny dockable clock. It is a very
  simple tool; especially helpful for those that are using OpenBox. It
