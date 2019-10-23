@@ -142,7 +142,7 @@ void get_params(Display *display, int argc, char *argv[]) {
 
   /* check for version request */
   if (XrmGetResource(database, "tdc.version", "tdc.version", &type, &xrmval) == True) {
-    printf("tdc 1.7\n");
+    printf("tdc 1.8\n");
     exit(0);
   }
 
