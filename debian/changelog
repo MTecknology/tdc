@@ -1,9 +1,9 @@
-tdc (1.8-2) UNRELEASED; urgency=medium
+tdc (1.8-2) unstable; urgency=medium
 
   * Move bsdmainutils from Requires to Recommends
     + Only required for --enable-cal
 
- -- Michael Lustfield <michael@lustfield.net>  Wed, 23 Oct 2019 00:27:14 -0500
+ -- Michael Lustfield <michael@lustfield.net>  Wed, 23 Oct 2019 00:29:11 -0500
 
 tdc (1.8-1) unstable; urgency=medium
 
