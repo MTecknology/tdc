@@ -1,3 +1,10 @@
+tdc (1.8-1) unstable; urgency=medium
+
+  * New upstream release (1.8).
+  * Fix compiler warnings and minor code cleanup
+
+ -- Michael Lustfield <michael@lustfield.net>  Tue, 22 Oct 2019 22:51:14 -0500
+
 tdc (1.7-1) unstable; urgency=medium
 
   * New upstream release (1.7).
