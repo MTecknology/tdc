@@ -1,7 +1,8 @@
 export PREFIX ?= /usr/local
 
-CPPFLAGS += $(shell pkg-config x11 xft --cflags)
-LIBS += $(shell pkg-config x11 xft --libs)
+PKG_CONFIG ?= pkg-config
+CPPFLAGS += $(shell $(PKG_CONFIG) x11 xft --cflags)
+LIBS += $(shell $(PKG_CONFIG) x11 xft --libs)
 
 all: tdc tdc.1
 
