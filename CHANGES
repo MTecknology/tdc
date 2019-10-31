@@ -1,3 +1,9 @@
+Changes with tdc 1.9                                                31 Oct 2019
+
+  * Special Halloween release
+  * Fix FTCBFS found by downstream
+    + Thanks Helmut Grohne
+
 Changes with tdc 1.8                                                22 Oct 2019
 
   * Fix compiler warnings
