@@ -1,3 +1,10 @@
+tdc (1.9-1) unstable; urgency=medium
+
+  * New upstream release (1.9)
+  * Fix FTCBFS caused by pkg-confg (Closes: #943406)
+
+ -- Michael Lustfield <michael@lustfield.net>  Thu, 31 Oct 2019 02:36:28 -0500
+
 tdc (1.8-2) unstable; urgency=medium
 
   * Move bsdmainutils from Requires to Recommends
