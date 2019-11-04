@@ -1,10 +1,10 @@
-tdc (1.9-2) UNRELEASED; urgency=medium
+tdc (1.9-2) unstable; urgency=medium
 
   * Removed d/manpages.
     + Resolved issue caused by external bug:
       https://bugs.debian.org/943705
 
- -- Michael Lustfield <michael@lustfield.net>  Mon, 04 Nov 2019 10:15:00 -0600
+ -- Michael Lustfield <michael@lustfield.net>  Mon, 04 Nov 2019 10:52:13 -0600
 
 tdc (1.9-1) unstable; urgency=medium
 
