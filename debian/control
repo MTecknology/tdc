@@ -2,8 +2,8 @@ Source: tdc
 Section: x11
 Priority: optional
 Maintainer: Michael Lustfield <michael@lustfield.net>
-Build-Depends: debhelper (>= 12), libxft-dev, libxt-dev, libx11-dev
-Standards-Version: 4.4.1
+Build-Depends: debhelper-compat (= 12), libxft-dev, libxt-dev, libx11-dev
+Standards-Version: 4.5.0
 Rules-Requires-Root: no
 Homepage: https://github.com/MTecknology/tdc
 Vcs-Browser: https://github.com/MTecknology/tdc
