@@ -1,9 +1,9 @@
 Source: tdc
 Section: x11
 Priority: optional
-Maintainer: Michael Lustfield <michael@lustfield.net>
-Build-Depends: debhelper-compat (= 12), libxft-dev, libxt-dev, libx11-dev
-Standards-Version: 4.5.0
+Maintainer: Michael Lustfield <mtecknology@debian.org>
+Build-Depends: debhelper-compat (= 13), libxft-dev, libxt-dev, libx11-dev
+Standards-Version: 4.5.1.0
 Rules-Requires-Root: no
 Homepage: https://github.com/MTecknology/tdc
 Vcs-Browser: https://github.com/MTecknology/tdc
@@ -12,7 +12,7 @@ Vcs-Git: https://github.com/MTecknology/tdc.git
 Package: tdc
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: bsdmainutils
+Recommends: ncal
 Description: Tiny Dockable Clock
  Tiny Dockable Clock (tdc) is a simple and tiny dockable clock. It is a very
  simple tool; especially helpful for those that are using OpenBox. It

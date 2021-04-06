@@ -1,11 +1,24 @@
-tdc (1.9-2~bpo10+2) UNRELEASED; urgency=medium
+tdc (1.9-3) UNRELEASED; urgency=medium
 
+  [Michael Lustfield]
+  * d/contol:
+    + Use @debian address for Maintainer field.
+    + Bump debhelper version.
+    + Update standards version to 4.5.1.0, no changes needed.
+    + Recommends: s/bsdmainutils/ncal/ (Closes: #964523)
+  * d/watch: Update to v4 and clean up syntax.
+  * orig-tarball-missing-upstream-signature: Added signature to pristine-tar.
+  * Deleted d/source/lintian-overrides.
+  * d/source/lintian-overrides:
+    + Update lintian tag.
+
+  [Debian Janitor]
   * Set debhelper-compat version in Build-Depends.
   * Remove obsolete field Name from debian/upstream/metadata (already
     present in machine-readable debian/copyright).
   * Update standards version to 4.5.0, no changes needed.
 
- -- Debian Janitor <janitor@jelmer.uk>  Tue, 05 May 2020 03:05:47 +0000
+ -- Michael Lustfield <mtecknology@debian.org>  Tue, 06 Apr 2021 20:25:40 +0000
 
 tdc (1.9-2~bpo10+1) buster-backports; urgency=medium
 

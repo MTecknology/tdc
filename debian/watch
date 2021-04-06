@@ -1,5 +1,5 @@
-version=3
+version=4
 opts=\
-filenamemangle=s/.+\/v?(\d\S*)\.tar\.gz/tdc-v$1\.tar\.gz/,\
-pgpsigurlmangle=s/archive\/v(\d\S*)\.tar\.gz/releases\/download\/v$1\/tdc-$1\.tar\.gz\.asc/ \
- https://github.com/MTecknology/tdc/releases .*/v?(\d\S*)\.tar\.gz
+filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/tdc-$1\.tar\.gz/,\
+pgpsigurlmangle=s/archive\/.+?\/(v?)(\d\S+)\.tar\.gz/releases\/download\/$1$2\/tdc-$2\.tar\.gz\.asc/ \
+  https://github.com/MTecknology/tdc/releases/latest .*/v?(\d\S+)\.tar\.gz
