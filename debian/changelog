@@ -1,4 +1,4 @@
-tdc (1.9-3) UNRELEASED; urgency=medium
+tdc (1.9-3) unstable; urgency=medium
 
   [Michael Lustfield]
   * d/contol:
@@ -18,7 +18,7 @@ tdc (1.9-3) UNRELEASED; urgency=medium
     present in machine-readable debian/copyright).
   * Update standards version to 4.5.0, no changes needed.
 
- -- Michael Lustfield <mtecknology@debian.org>  Tue, 06 Apr 2021 20:25:40 +0000
+ -- Michael Lustfield <mtecknology@debian.org>  Wed, 07 Apr 2021 03:43:59 +0000
 
 tdc (1.9-2~bpo10+1) buster-backports; urgency=medium
 
