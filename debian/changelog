@@ -1,3 +1,9 @@
+tdc (2.0-1) unstable; urgency=medium
+
+  * New upstream release (2.0)
+
+ -- Michael Lustfield <mtecknology@debian.org>  Fri, 12 Oct 2023 21:55:50 +0000
+
 tdc (1.9-3) unstable; urgency=medium
 
   [Michael Lustfield]
