@@ -1,15 +1,16 @@
-tdc (2.1-1) UNRELEASED; urgency=medium
+tdc (2.1-1) unstable; urgency=medium
 
   * New upstream release (2.1)
   * Bump SV to 4.7.2
     + Bump copyright years
-  * Add compatibility with GCC-15
+  * Add compatibility with GCC-15 (Closes: #1097979)
+    + Thanks: Adrian Bunk
   * Add option for background color
     + Fixes ghosting artifacts caused by transparent background
   * Fix multiple bugs detecting current day
   * Adjust size of highlight box to cover entire day
 
- -- Michael Lustfield <mtecknology@debian.org>  Sun, 05 Oct 2025 18:33:09 +0000
+ -- Michael Lustfield <mtecknology@debian.org>  Sun, 05 Oct 2025 19:54:14 +0000
 
 tdc (2.0-1) unstable; urgency=medium
 
