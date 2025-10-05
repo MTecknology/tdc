@@ -4,18 +4,18 @@ Upstream-Contact: Michael Lustfield <mtecknology@debian.org>
 Source: https://github.com/MTecknology/tdc
 
 Files: *
-Copyright: 2011-2019 Michael Lustfield <michael@lustfield.net>
+Copyright: 2011-2025 Michael Lustfield <michael@lustfield.net>
            2010 Mikael Magnusson <mikachu@comhem.se>
            2010 Dave Foster <daf@minuslab.net>
            2010 Tom Cornall <t.cornall@gmail.com>
 License: GPL-3+
 
 Files: docs/*
-Copyright: 2011-2019 Michael Lustfield <michael@lustfield.net>
+Copyright: 2011-2025 Michael Lustfield <michael@lustfield.net>
 License: GPL-3+
 
 Files: debian/*
-Copyright: 2011-2019 Michael Lustfield <mtecknology@debian.org>
+Copyright: 2011-2025 Michael Lustfield <mtecknology@debian.org>
 License: GPL-3+
 
 License: GPL-3+
