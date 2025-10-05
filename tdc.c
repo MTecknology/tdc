@@ -333,14 +333,13 @@ void findtoday(int *todayi, int *todayj, int cal_m, int cal_y) {
   if (cal_m == getmonth() && cal_y == getyear()) {
     snprintf(needle, sizeof(needle), "%d", getday());
 
-    pos_h = (char*) &curr_cal[2];
-    pos_n = (char*) strstr(curr_cal[2], needle);
-
-    *todayi = (pos_n - pos_h) / sizeof(curr_cal[2]) + 2;
-    *todayj = (pos_n - pos_h) % sizeof(curr_cal[2]);
-
-    if (getday() < 10) {
-      -- * todayj;
+    for (int i = 3; i < 8; i++) {
+      pos_n = (char*) strstr(curr_cal[i], needle);
+      if (pos_n != NULL) {
+        *todayi = i;
+        *todayj = pos_n - (char*)&curr_cal[i];
+        break;
+      }
     }
   }
 }
