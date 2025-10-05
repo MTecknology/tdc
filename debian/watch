@@ -1,5 +1,7 @@
-version=4
-opts=\
-filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/tdc-$1\.tar\.gz/,\
-pgpsigurlmangle=s/archive\/.+?\/(v?)(\d\S+)\.tar\.gz/releases\/download\/$1$2\/tdc-$2\.tar\.gz\.asc/ \
-  https://github.com/MTecknology/tdc/releases/latest .*/v?(\d\S+)\.tar\.gz
+Version: 5
+Source: https://api.github.com/repos/MTecknology/tdc/git/matching-refs/tags/
+Matching-Pattern: https://api.github.com/repos/[^/]+/[^/]+/git/refs/tags/@ANY_VERSION@
+Searchmode: plain
+Download-Url-Mangle: s|api.github.com/repos/([^/]+/[^/]+)/git/refs/tags/@ANY_VERSION@|github.com/$1/archive/refs/tags/v$2.tar.gz|g
+Filename-Mangle: s|.*/@ANY_VERSION@|@PACKAGE@-$1.tar.gz|
+pgpsigurlmangle: s|archive/.+?/v(\d\S+)\.tar\.gz|releases/download/v$1/tdc-$1\.tar\.gz\.asc|
