@@ -462,7 +462,7 @@ int main(int argc, char *argv[]) {
   XSetWMHints(display, dockapp, &wm_hints);
   XSetCommand(display, dockapp, argv, argc);
 
-  XSetWindowBackgroundPixmap(display, dockapp, ParentRelative);
+  XSetWindowBackground(display, dockapp, BlackPixel(display, screen));
 
   XStoreName(display, dockapp, appname);
 
