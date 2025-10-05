@@ -32,6 +32,7 @@
 double calfontsize = 14.0;
 char *calfontname = "Mono";
 char *hlcolorname = "grey30";
+char *bgcolorname = "black";
 char curr_cal[8][30];
 #define NUM_OPTS 23
 
@@ -54,6 +55,7 @@ static XrmOptionDescRec opt_table[] = {
   {"--calfont=",     "*calfont",     XrmoptionStickyArg, (XPointer)NULL},
   {"--calfontsize=", "*calfontsize", XrmoptionStickyArg, (XPointer)NULL},
   {"--hlcolor=",     "*hlcolor",     XrmoptionStickyArg, (XPointer)NULL},
+  {"--bgcolor=",     "*bgcolor",     XrmoptionStickyArg, (XPointer)NULL},
   {"--help",         "*help",        XrmoptionNoArg,     (XPointer)""},
   {"--version",      "*version",     XrmoptionNoArg,     (XPointer)""},
   {"--enable-cal",   "*enable-cal",  XrmoptionNoArg,     (XPointer)""},
@@ -76,7 +78,7 @@ static void gettime(char *strtime) {
   strftime(strtime, 49, timeformat, curtime_tm);
 }
 
-void handle_term() {
+void handle_term(int sig) {
   running = 0;
 }
 
@@ -127,6 +129,7 @@ void get_params(Display *display, int argc, char *argv[]) {
     printf("     --calfont:     The font that will be used in the calendar.  Default is Mono.\n");
     printf("     --calfontsize: The font size used in the calendar.  Default is 14.0.\n");
     printf("     --hlcolor:     The highlight color to use in the calendar.  Default is grey30.\n");
+    printf("     --bgcolor:     The highlight color to use in the calendar.  Default is grey30.\n");
     printf("You can also put these in your ~/.Xdefaults file:\n");
     printf("tdc*font\n");
     printf("tdc*fontsize\n");
@@ -135,6 +138,7 @@ void get_params(Display *display, int argc, char *argv[]) {
     printf("tdc*calfontsize\n");
     printf("tdc*color\n");
     printf("tdc*hlcolor\n");
+    printf("tdc*bgcolor\n");
     printf("tdc*width\n");
     printf("tdc*format\n\n");
     exit(0);
@@ -142,7 +146,7 @@ void get_params(Display *display, int argc, char *argv[]) {
 
   /* check for version request */
   if (XrmGetResource(database, "tdc.version", "tdc.version", &type, &xrmval) == True) {
-    printf("tdc 1.9\n");
+    printf("tdc 2.0\n");
     exit(0);
   }
 
@@ -209,6 +213,13 @@ void get_params(Display *display, int argc, char *argv[]) {
       die("Option \"hlcolor\" was in an unexpected format!");
     }
     hlcolorname = xrmval.addr;
+  }
+
+  if (XrmGetResource(database, "tdc.bgcolor", "tdc.bgcolor", &type, &xrmval) == True) {
+    if (strcmp(type, "String")) {
+      die("Option \"bgcolor\" was in an unexpected format!");
+    }
+    bgcolorname = xrmval.addr;
   }
 }
 
@@ -322,14 +333,13 @@ void findtoday(int *todayi, int *todayj, int cal_m, int cal_y) {
   if (cal_m == getmonth() && cal_y == getyear()) {
     snprintf(needle, sizeof(needle), "%d", getday());
 
-    pos_h = (char*) &curr_cal[2];
-    pos_n = (char*) strstr(curr_cal[2], needle);
-
-    *todayi = (pos_n - pos_h) / sizeof(curr_cal[2]) + 2;
-    *todayj = (pos_n - pos_h) % sizeof(curr_cal[2]);
-
-    if (getday() < 10) {
-      -- * todayj;
+    for (int i = 2; i < 8; i++) {
+      pos_n = (char*) strstr(curr_cal[i], needle);
+      if (pos_n != NULL) {
+        *todayi = i;
+        *todayj = pos_n - (char*)&curr_cal[i];
+        break;
+      }
     }
   }
 }
@@ -343,11 +353,12 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
   char rightarrow[] = ">";
   char buff[2];
   XGlyphInfo extents;
-  int glyph_w, glyph_h;
+  int glyph_h, glyph_w, glyph_wide;
 
   XftTextExtentsUtf8(display, font, (FcChar8*) "0", strlen("0"), &extents);
   glyph_w = extents.xOff;
   glyph_h = extents.height * 1.8;
+  glyph_wide = (getday() >= 10) ? glyph_w * 2 : glyph_w;
 
   if (system(NULL) == 0) {
     char errmsg[] = "No shell available";
@@ -371,9 +382,9 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
       p_y = (i + 1) * glyph_h;
       snprintf(buff, sizeof(buff), "%c", curr_cal[i][j]);
       if ((int) buff[0] != 10) {
-        /*make sure not to print newline chars */
-        if (i == todayi && (j == todayj || j == todayj + 1)) {
-          XftDrawRect(caldraw, xfthlcolor, p_x - extents.x, p_y - extents.y, extents.xOff, extents.height);
+        /* do not print newline chars */
+        if (i == todayi && j == todayj) {
+          XftDrawRect(caldraw, xfthlcolor, p_x - 1, p_y - glyph_h + font->descent, glyph_wide + (font->max_advance_width/2), glyph_h);
           XftDrawStringUtf8(caldraw, xftcolor, font, p_x, p_y, (FcChar8*) buff, strlen(buff));
         }
         else {
@@ -411,6 +422,7 @@ int main(int argc, char *argv[]) {
   XftFont *calfont = NULL;
   XftDraw *caldraw = NULL;
   XftColor xfthlcolor;
+  XftColor xftbgcolor;
   int cal_m = 0, cal_y = 0;
   int m_x = 0;
   int glyph_w = 0, glyph_h = 0;
@@ -462,7 +474,22 @@ int main(int argc, char *argv[]) {
   XSetWMHints(display, dockapp, &wm_hints);
   XSetCommand(display, dockapp, argv, argc);
 
-  XSetWindowBackgroundPixmap(display, dockapp, ParentRelative);
+  if (XParseColor(display, colormap, bgcolorname, &c) == None) {
+    fprintf(stderr, "Couldn't parse color '%s'\n", bgcolorname);
+    fflush(stderr);
+    color.red = 0xffff;
+    color.green = 0xffff;
+    color.blue = 0xffff;
+  }
+  else {
+    color.red = c.red;
+    color.blue = c.blue;
+    color.green = c.green;
+  }
+  color.alpha = 0xffff;
+  XftColorAllocValue(display, vis, colormap, &color, &xftbgcolor);
+
+  XSetWindowBackground(display, dockapp, xftbgcolor.pixel);
 
   XStoreName(display, dockapp, appname);
 
