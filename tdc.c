@@ -76,7 +76,7 @@ static void gettime(char *strtime) {
   strftime(strtime, 49, timeformat, curtime_tm);
 }
 
-void handle_term() {
+void handle_term(int sig) {
   running = 0;
 }
 
