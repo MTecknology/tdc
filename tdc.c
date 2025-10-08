@@ -382,8 +382,9 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
       snprintf(buff, sizeof(buff), "%c", curr_cal[i][j]);
       if ((int) buff[0] != 10) {
         /* do not print newline chars */
+        //if (i == todayi && j == todayj) {
         if (i == todayi && (j == todayj || j == todayj + 1)) {
-          XftDrawRect(caldraw, xfthlcolor, p_x - extents.x, p_y - extents.y, extents.xOff, extents.height);
+          XftDrawRect(caldraw, xfthlcolor, p_x - 1, p_y - glyph_h + font->descent, glyph_w + (font->max_advance_width/2), glyph_h);
           XftDrawStringUtf8(caldraw, xftcolor, font, p_x, p_y, (FcChar8*) buff, strlen(buff));
         }
         else {
