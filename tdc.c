@@ -333,7 +333,7 @@ void findtoday(int *todayi, int *todayj, int cal_m, int cal_y) {
   if (cal_m == getmonth() && cal_y == getyear()) {
     snprintf(needle, sizeof(needle), "%d", getday());
 
-    for (int i = 3; i < 8; i++) {
+    for (int i = 2; i < 8; i++) {
       pos_n = (char*) strstr(curr_cal[i], needle);
       if (pos_n != NULL) {
         *todayi = i;
@@ -353,11 +353,12 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
   char rightarrow[] = ">";
   char buff[2];
   XGlyphInfo extents;
-  int glyph_w, glyph_h;
+  int glyph_h, glyph_w, glyph_wide;
 
   XftTextExtentsUtf8(display, font, (FcChar8*) "0", strlen("0"), &extents);
   glyph_w = extents.xOff;
   glyph_h = extents.height * 1.8;
+  glyph_wide = (getday() >= 10) ? glyph_w * 2 : glyph_w;
 
   if (system(NULL) == 0) {
     char errmsg[] = "No shell available";
@@ -382,9 +383,8 @@ void paintCalendar(Display *display, int cal_m, int cal_y, XftDraw *caldraw,
       snprintf(buff, sizeof(buff), "%c", curr_cal[i][j]);
       if ((int) buff[0] != 10) {
         /* do not print newline chars */
-        //if (i == todayi && j == todayj) {
-        if (i == todayi && (j == todayj || j == todayj + 1)) {
-          XftDrawRect(caldraw, xfthlcolor, p_x - 1, p_y - glyph_h + font->descent, glyph_w + (font->max_advance_width/2), glyph_h);
+        if (i == todayi && j == todayj) {
+          XftDrawRect(caldraw, xfthlcolor, p_x - 1, p_y - glyph_h + font->descent, glyph_wide + (font->max_advance_width/2), glyph_h);
           XftDrawStringUtf8(caldraw, xftcolor, font, p_x, p_y, (FcChar8*) buff, strlen(buff));
         }
         else {
